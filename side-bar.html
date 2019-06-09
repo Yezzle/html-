@@ -38,6 +38,8 @@
         }
 
         .ul .li a {
+            font-size: 40px;
+            color: aqua;
             width: 100%;
             height: 100%;
             display: block;
@@ -47,19 +49,19 @@
         }
 
         .li .a1 {
-            background: url("./images/cart.svg") no-repeat;
+            /* background: url("./images/cart.svg") no-repeat; */
         }
 
         .li .a2 {
-            background: url("./images/clover.svg") no-repeat;
+            /* background: url("./images/clover.svg") no-repeat; */
         }
 
         .li .a3 {
-            background: url("./images/like.svg") no-repeat;
+            /* background: url("./images/like.svg") no-repeat; */
         }
 
         .li .a4 {
-            background: url("./images/search-b.svg") no-repeat;
+            /* background: url("./images/search-b.svg") no-repeat; */
         }
 
         .container span {
@@ -91,21 +93,35 @@
 </head>
 
 <body>
+
     <label class="manu-btn">
         <input type="checkbox">
         <div class="container">
             <span></span>
             <ul class="ul">
-                <li class="li li1"><a class="a1" href="#"></a></li>
-                <li class="li li2"><a class="a2" href="#"></a></li>
-                <li class="li li3"><a class="a3" href="#"></a></li>
-                <li class="li li4"><a class="a4" href="#"></a></li>
-                <li class="li li5"><a class="a5" href="#"></a></li>
-                <li class="li li6"><a class="a6" href="#"></a></li>
+                <li class="li li1"><a class="a1" href="#">
+                        <ion-icon name="globe"></ion-icon>
+                    </a></li>
+                <li class="li li2"><a class="a2" href="#">
+                        <ion-icon name="grid"></ion-icon>
+                    </a></li>
+                <li class="li li3"><a class="a3" href="#">
+                        <ion-icon name="image"></ion-icon>
+                    </a></li>
+                <li class="li li4"><a class="a4" href="#">
+                        <ion-icon name="mail-unread"></ion-icon>
+                    </a></li>
+                <li class="li li5"><a class="a5" href="#">
+                        <ion-icon name="mail-unread"></ion-icon>
+                    </a></li>
+                <li class="li li6"><a class="a6" href="#">
+                        <ion-icon name="print"></ion-icon>
+                    </a></li>
             </ul>
         </div>
     </label>
-
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    </script>
 </body>
 
 </html>
