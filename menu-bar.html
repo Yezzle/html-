@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/font-awesome/5.8.2/css/all.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            position: absolute;
+            left: 50%;
+            ;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .menu {
+            width: 300px;
+            font-family: sans-serif;
+
+        }
+
+        .menu ul {
+            padding: 0;
+            list-style: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .menu ul li {
+            background: #2ca0cc;
+            z-index: 3;
+        }
+
+        .menu ul a {
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu ul li .btn {
+            padding: 10px 15px;
+            position: relative;
+
+        }
+
+        .btn1 {
+            padding: 10px 15px;
+        }
+
+        .menu ul>li .btn:before {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            background: #2ca0cc;
+            z-index: 2;
+            transform: rotate(45deg);
+            width: 10px;
+            height: 10px;
+            bottom: -5px;
+            left: 10%;
+        }
+
+        .menu ul>li:hover .btn:before {
+            opacity: 1;
+        }
+
+        /* .menu ul li:hover div {
+            max-height: 10rem;
+        } */
+        .menu ul li:target div {
+            max-height: 10rem
+        }
+
+        .menu ul div {
+            display: block;
+            max-height: 0;
+            box-sizing: border-box;
+            transition: max-height 0.4s;
+            overflow: hidden;
+        }
+
+        .menu ul div>a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            background: #2c2c2c;
+        }
+
+        .menu ul div>a:hover {
+            background: #4c4c4c
+        }
+
+        .menu ul div>a:before {
+            content: '';
+            height: calc(100% - 6px);
+            width: 5px;
+            background: #2ca0cc;
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 3px;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .menu ul div>a:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu">
+            <ul>
+                <li class="l1" id="user">
+                    <a href="#user" class="btn"><i class="fas fa-user"></i> Profile</a>
+                    <div>
+                        <a href="#">Posts</a>
+                        <a href="#">Picture</a>
+                    </div>
+                </li>
+                <li class="l1" id="message">
+                    <a href="#message" class="btn"><i class="fas fa-envelope"></i> Message</a>
+                    <div>
+                        <a href="#">New</a>
+                        <a href="#">Send</a>
+                        <a href="#">Spam</a>
+                    </div>
+                </li>
+                <li class="l1" id="settings">
+                    <a href="#settings" class="btn"><i class="fas fa-cog"></i> Settings</a>
+                    <div>
+                        <a href="#">Password</a>
+                        <a href="#">语言</a>
+                    </div>
+                </li>
+                <li class="l1" id="logout">
+                    <a href="#logout" class="btn1"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <div>
+                        <a href="#">logout</a>
+                        <a href="#">Switch acount</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
