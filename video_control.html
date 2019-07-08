@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+
+<style id="webmakerstyle">
+section{
+  margin:10px;
+}
+span#bt{
+  display: inline-block;
+  padding:10px;
+  border: #f53e3b solid 1px;
+  border-radius: 5px;
+  cursor:pointer
+}
+</style>
+</head>
+<body>
+<video id="video1" width="320" height="240">
+  <source src="https://scratchcdn.codepku.com/uploads/dn_course/music/theme/1/%E5%9B%9B%E3%80%81%E8%AF%B4%E5%94%B1%E8%8A%82%E5%A5%8F%E7%BC%96%E5%86%99.mp4" />
+</video>
+<label>
+  <span>是否显示控制栏：</span>
+  <input id="checkbox" type="checkbox"/>
+</label>
+
+<section>
+  <label>
+    <span id='sp_start1'>start:</span>
+    <input id='ip_start1' type="text" value="2"></input>
+  </label>
+  <label>
+    <span id='sp_end1'>end:</span>
+    <input id='ip_end1' type="text" value="6"></input>
+  </label>
+</section>
+<section>
+  <label>
+    <span id='sp_start2'>start:</span>
+    <input id='ip_start2' type="text" value="22"></input>
+  </label>
+  <label>
+    <span id='sp_end2'>end:</span>
+    <input id='ip_end2' type="text" value="26"></input>
+  </label>
+</section>
+<section>
+  <label>
+    <span id='sp_start3'>start:</span>
+    <input id='ip_start3' type="text" value="91"></input>
+  </label>
+  <label>
+    <span id='sp_end3'>end:</span>
+    <input id='ip_end3' type="text" value="99"></input>
+  </label>
+</section>
+<span id="bt">点击按照指定范围播放</span>
+
+
+
+<script>
+var myVideo=document.getElementById("video1"); 
+var button = document.getElementById("bt");
+var checkbox = document.getElementById("checkbox");
+
+checkbox.addEventListener('change', function(event){
+  console.log('checked', event.target.checked)
+    myVideo.controls = event.target.checked;
+})
+button.addEventListener('click', function(element){
+  console.log(event);
+  let arr = getTimeArr();
+  playArr(arr);
+})
+//myVideo.play(); 
+myVideo.controls = checkbox.checked;
+
+let obj = {}
+obj.start1 = document.getElementById('ip_start1');
+obj.start2 = document.getElementById('ip_start2');
+obj.start3 = document.getElementById('ip_start3');
+obj.end1 = document.getElementById('ip_end1');
+obj.end2 = document.getElementById('ip_end2');
+obj.end3 = document.getElementById('ip_end3');
+
+const getTimeArr = ()=>{
+  let result = [];
+  for(let i=1;i<=3;i++){
+    result.push([obj["start"+i].value, obj["end"+i].value]);
+  }
+  return result;
+}
+
+const playArr = (arr)=>{
+  playTheTime(arr[0][0]>arr[0][1]? arr[0][1]: arr[0][0], 0)();
+  arr.map((ts, index)=>{
+    let delay = ts[0]>ts[1]? ts[0]-ts[1]: ts[1] - ts[0];
+    console.log('delay: ',delay);
+    let playfn;
+    if(index+1!=arr.length){
+      playfn = playTheTime(arr[index+1][0]>arr[index+1][1]? arr[index+1][1]: arr[index+1][0])
+    }else{ 
+      playfn = pauseAtTime(arr[index][0]>arr[index][1]? arr[index][0]: arr[index][1]);
+    }
+    return makeTimeoutPromise(playfn, delay);
+  }).filter(x=>x).reduce((p1,p2)=>{
+    return p1.then(p2)
+  }, Promise.resolve())
+}
+
+const playTheTime =(time)=>{
+  console.log('playtime:',time);
+  return ()=>{
+    myVideo.currentTime = time;
+    if(myVideo.paused){
+      myVideo.play();
+    }
+  }
+}
+
+const pauseAtTime = (time)=>{
+  return ()=>{
+    myVideo.currentTime = time;
+    if(!myVideo.paused){
+      myVideo.pause();
+    }
+  }
+}
+
+const makeTimeoutPromise = (fn, delay)=>{
+  return () => new Promise((resolve,reject)=>{
+    try{
+      setTimeout(()=>{
+        fn();
+        resolve();
+      },delay*1000)
+    }catch(e){
+      reject(e);
+    }
+  })
+}
+
+
+//# sourceURL=userscript.js
+</script>
+</body>
+</html>
