@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+
+<style id="webmakerstyle">
+#container{
+  position:relative;
+  padding:10px;
+  background:#fff;
+  width:100%;
+  height:100%;
+}
+#canvas{
+  border: 1px solid black;
+}
+#canvas2{
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<div id='container'>
+  <canvas id='canvas'> </canvas>  
+  <canvas id='canvas2'> </canvas> 
+</div>
+ 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oj.AceEditor/0.0.6/oj.AceEditor.min.js"></script>
+<script>
+let canvas = document.getElementById('canvas');
+let canvas2= document.getElementById('canvas2');
+let ctx2 = canvas2.getContext('2d'), x2=0,y2=0;drawing=false;
+let ctx = canvas.getContext('2d'),x=0,y=0,isDrawing = false;
+const rect = canvas.getBoundingClientRect();
+const rect2 = canvas2.getBoundingClientRect();
+
+
+document.addEventListener('mousedown',(e)=>{
+  onDispatchEvent(e);
+  x = e.clientX - rect.left;
+  y = e.clientY - rect.top;
+  isDrawing = true;
+})
+document.addEventListener('mousemove',(e)=>{ 
+  onDispatchEvent(e);
+  if (isDrawing === true) {
+    drawLine(ctx, x, y, e.clientX - rect.left, e.clientY - rect.top);
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
+  }
+})
+document.addEventListener('mouseup',(e)=>{
+  onDispatchEvent(e);
+  if (isDrawing === true) {
+    drawLine(ctx, x, y, e.clientX - rect.left, e.clientY - rect.top);
+    x = 0;
+    y = 0;
+  }
+  isDrawing = false;
+})
+
+document.addEventListener('_mousedown',(e)=>{
+  x2 = e.clientX - rect2.left;
+  y2 = e.clientY - rect2.top;
+  drawing = true;
+})
+document.addEventListener('_mousemove',(e)=>{ 
+  if (drawing === true) {
+    drawLine(ctx2, x2, y2, e.clientX - rect2.left, e.clientY - rect2.top);
+    x2 = e.clientX - rect2.left;
+    y2 = e.clientY - rect2.top;
+  }
+})
+document.addEventListener('_mouseup',(e)=>{
+  if (drawing === true) {
+    drawLine(ctx2, x2, y2, e.clientX - rect2.left, e.clientY - rect2.top);
+    x2 = 0;
+    y2 = 0;
+  }
+  drawing = false;
+})
+
+function onDispatchEvent (event){
+  var _event = document.createEvent('Event');
+  _event.initEvent('_'+event.type, true, true );
+  _event.clientX = event.clientX + rect.right - rect.left;
+  _event.clientY = event.clientY ;
+  canvas2.dispatchEvent(_event);
+}
+
+function drawLine(context, x1, y1, x2, y2) {
+  context.beginPath();
+  context.strokeStyle = '#f3524f';
+  context.lineJoin="round";
+  context.lineWidth = 1;
+  context.moveTo(x1, y1);
+  context.lineTo(x2, y2);
+  context.stroke();
+  context.closePath();
+}
+//# sourceURL=userscript.js
+</script>
+</body>
+</html>
